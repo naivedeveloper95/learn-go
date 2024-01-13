@@ -34,4 +34,13 @@ func main() {
 	var a, b, c int
 	fmt.Println(a, b, c)
 
+	var i, j int
+	i, j = 5, 8
+
+	j, i = i, j
+	fmt.Println(i, j)
+
+	sum := 5 + 2.3
+	fmt.Println(sum)
+
 }
