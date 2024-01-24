@@ -33,4 +33,41 @@ func main() {
 
 	aBook := book{title: "Just a Random Book"}
 	fmt.Printf("%#v\n", aBook)
+
+	diana := struct {
+		firstName string
+		lastName  string
+		age       int
+	}{
+		firstName: "Diana",
+		lastName:  "Aligheri",
+		age:       25,
+	}
+
+	fmt.Printf("%#v\n", diana)
+	fmt.Printf("%d\n", diana.age)
+	fmt.Printf("%s\n", diana.firstName)
+	fmt.Printf("%s\n", diana.lastName)
+
+	type Book struct {
+		string
+		float64
+		bool
+	}
+
+	b1 := Book{"1984 By Goerge Orwell", 10.2, false}
+	fmt.Printf("%#v\n", b1)
+
+	fmt.Println(b1.string)
+
+	type Employee struct {
+		name   string
+		salary int64
+		bool
+	}
+
+	e := Employee{"John", 50000, false}
+	fmt.Printf("%#v\n", e)
+	e.bool = true
+	fmt.Printf("%#v\n", e)
 }
