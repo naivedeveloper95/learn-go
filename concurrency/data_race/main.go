@@ -16,6 +16,9 @@ func main() {
 	// adding 200 goroutines to the WaitGroup
 	wg.Add(gr * 2)
 
+	// Handling data race using mutex
+	// 1.
+	var m sync.Mutex
 	// declaring a shared value
 	var n int = 0
 
@@ -27,10 +30,10 @@ func main() {
 
 			// introducing some artificial time
 			time.Sleep(time.Second / 10)
-
+			m.Lock()
 			// increment the shared value
 			n++
-
+			m.Unlock()
 			// notifying the WaitGroup that the goroutine is done
 			wg.Done()
 		}()
@@ -38,7 +41,10 @@ func main() {
 		// goroutine that decrements the shared value
 		go func() {
 			time.Sleep(time.Second / 10)
+			m.Lock()
+			defer m.Unlock()
 			n--
+			// m.Unlock()
 			wg.Done()
 		}()
 
@@ -47,5 +53,5 @@ func main() {
 	wg.Wait()
 
 	//  printing the final value of n
-	fmt.Println(n) // it will have another value for each program execution -> DATA RACE
+	fmt.Println("The final value if n: ", n) // it will have another value for each program execution -> DATA RACE
 }
